@@ -1,13 +1,14 @@
 import re
 from datetime import datetime
-from flask import Flask
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Hello Flask!"
+    
+    return render_template("home.html")
 
 @app.route("/hello/<name>")
 def hello_there(name):
