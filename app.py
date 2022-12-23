@@ -1,28 +1,41 @@
-import re
-from datetime import datetime
-from flask import Flask, flash, redirect, render_template, request, session, jsonify
+from flask import Flask, render_template, send_from_directory, url_for
 
+from flask_uploads import UploadSet, IMAGES, configure_uploads
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms import SubmitField
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    
-    return render_template("home.html")
+app.config['SECRET_KEY'] = '1234qwer'
+app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
 
-@app.route("/hello/<name>")
-def hello_there(name):
-    now = datetime.now()
-    formatted_now = now.strftime("%A, %d %B, %Y at %X")
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
 
-    # Filter the name argument to letters only using regular expressions. URL arguments
-    # can contain arbitrary text, so we restrict to safe characters only.
-    match_object = re.match("[a-zA-Z]+", name)
+class UploadForm(FlaskForm):
+    photo = FileField(
+        validators=[
+            FileAllowed(photos, 'Only images are allowed'),
+            FileRequired('File field should not be empty')
+        ]
+    )
+    submit = SubmitField('Upload')
 
-    if match_object:
-        clean_name = match_object.group(0)
+@app.route('/uploads/<filename>')
+def get_file(filename):
+    return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
+
+@app.route('/', methods=['GET', 'POST'])
+def upload_image():
+    form = UploadForm()
+    if form.validate_on_submit():
+        filename = photos.save(form.photo.data)
+        file_url= url_for('get_file', filename=filename)
     else:
-        clean_name = "Friend"
+        file_url = None
+    return render_template('index.html', form=form, file_url=file_url)
 
-    content = "Hello there, " + clean_name + "! It's " + formatted_now
-    return content    
+
+if __name__ == '__main__':
+    app.run(debug=True)
