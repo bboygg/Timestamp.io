@@ -13,19 +13,12 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 
-class UploadForm(FlaskForm):
-    photo = FileField(
-        validators=[
-            FileAllowed(photos, 'Only images are allowed'),
-            FileRequired('File field should not be empty')
-        ]
-    )
-    submit = SubmitField('Upload')
-
+''' send file to directory??'''
 @app.route('/uploads/<filename>')
 def get_file(filename):
     return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
 
+''' initial page prompt user to upload file and display'''
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
     form = UploadForm()
@@ -34,7 +27,19 @@ def upload_image():
         file_url= url_for('get_file', filename=filename)
     else:
         file_url = None
+        
     return render_template('index.html', form=form, file_url=file_url)
+
+''' upload form class'''
+class UploadForm(FlaskForm):
+    photo = FileField(
+        validators=[
+            FileAllowed(photos, 'Only images are allowed'),
+            FileRequired('File field should not be empty')
+        ]
+    )
+    #submit button text
+    submit = SubmitField('Upload')
 
 
 if __name__ == '__main__':
