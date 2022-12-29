@@ -36,8 +36,9 @@ class UploadForm(FlaskForm):
         validators=[
             FileAllowed(photos, 'Only images are allowed'),
             FileRequired('File field should not be empty')
-        ]
+        ] 
     )
+    
     #submit button text
     submit = SubmitField('Upload')
 
