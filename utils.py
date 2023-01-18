@@ -33,8 +33,8 @@ while True:
     time = "{:0>2}:{:0>2}:{:05.2f}".format(int(h), int(m), s)
 
     # Add the remaining time to the frame
-    cv2.putText(frame, f"{time}", (10, 30),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (51, 153, 51), 2)
+    cv2.putText(frame, f"{time}", (430, 450),
+                cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (43,165,245), 2)
 
     # Show the frame
     cv2.imshow("Video", frame)
