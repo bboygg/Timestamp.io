@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    background: #eee;
+    padding: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-family: serif;
+    color: #377ba8;
+    margin: 1rem 0;
+    background-color: lightgray;
+    padding-bottom: 20;
+    margin-top: 0;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    padding: 0 ;
+    width: 100%;
+    text-align: center;
+}
