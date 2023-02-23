@@ -5,8 +5,6 @@ import os
 from flask import Flask, flash, request, redirect, send_from_directory, url_for, render_template
 from werkzeug.utils import secure_filename
 import secrets
-from utils import generate_timestamp
-
 
 
 # Configure application"

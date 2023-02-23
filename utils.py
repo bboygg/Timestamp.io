@@ -3,7 +3,10 @@ import os
 from datetime import datetime
 
 # Open the video file
-cap = cv2.VideoCapture("uploads/step.mp4")
+'''
+TODO: Implement path for video capture
+'''
+cap = cv2.VideoCapture("uploads")
 
 # Get the frames per second (FPS) of the video and video properties
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -12,10 +15,14 @@ fps = int(cap.get(cv2.CAP_PROP_FPS))
 
 # Define the codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-output_folder = "videos"
+output_folder = "video_timestamped"
 if not os.path.exists(output_folder):
     os.mkdir(output_folder)
-output_path = os.path.join(output_folder, "output.mp4")
+'''
+TODO: Implement targeting mp4 file
+'''
+
+output_path = os.path.join(output_folder, "")
 video_writer = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
 # Get the total number of frames in the video
@@ -30,6 +37,10 @@ fontScale = 3.0
 color = (0,165,255)
 thickness = 3
 
+
+'''
+TODO: Implement into app.py
+'''
 
 # Loop through each frame of the video
 while True:
