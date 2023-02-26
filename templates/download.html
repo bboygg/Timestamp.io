@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Download
+{% endblock %}
+
+{% block main %} 
+<div>
+  <div>
+    <h2>
+      Download timestamped video
+    </h2>
+  </div>
+  <div>
+    <p>Click the link below to download the processed video:</p>
+    <a href="{{ url_for('download_processed_file', filename=filename) }}">Download Video</a>
+  </div>
+</div>
+
+{% endblock %}
