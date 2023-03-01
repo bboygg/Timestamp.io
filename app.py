@@ -28,10 +28,6 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# send file to directory
-#@app.route('/uploads/<filename>')
-# def download_file(filename):
-#    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/download/<filename>')
 def download_file(filename):
@@ -81,9 +77,6 @@ def upload_video():
             app.config['PROCESSED_FOLDER'] = output_folder
 
 
-            #postfix = "_timestamped"
-            #filename_processed = filename.rsplit('.', 1)[0] + postfix + '.' + filename.rsplit('.', 1)[1]
-
             # Define output path
             output_path = os.path.join(app.config['PROCESSED_FOLDER'], f"timestamped_{filename}")
             
@@ -96,7 +89,6 @@ def upload_video():
             frame_count = 0
 
              # putText variables
-            text = 'Time remaining: '
             font = cv2.FONT_HERSHEY_SIMPLEX
             org = (10, 70)
             fontScale = 3.0
@@ -113,14 +105,17 @@ def upload_video():
                     break
 
                 # Calculate the reamining time in seconds
-                time = (total_frames - frame_count) / fps
+                # time = (total_frames - frame_count) / fps
+                
+                # Calculate the current fps
+                time = frame_count / fps
 
                 # Convert time to datetime format
                 m,s = divmod(time, 60)
                 time = "{:0>2}:{:05.2f}".format(int(m), s)
 
-                # Add the remaining time to the frame
-                cv2.putText(frame, text + f"{time}", org, font, fontScale, color, thickness)
+                # Add Timestampe to the frame
+                cv2.putText(frame, f"{time}", org, font, fontScale, color, thickness)
 
                 # Wrtie the frame to the output video
                 video_writer.write(frame)
@@ -137,4 +132,4 @@ def upload_video():
 
 # The app will be running in debug mode, so any error messages or output will be displayed in the console.
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run

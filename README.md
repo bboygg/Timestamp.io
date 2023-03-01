@@ -1,10 +1,11 @@
 # 🕑 Timestamp.io
 
-# Overview 
-You can upload and download the video with the timestamp on your video. 
-* currently only support mp4 file 
+#### Video Demo: [Link to Video](https://www.youtube.com/watch?v=svs7NrzTsWo&ab_channel=GeorgeGo)
 
-# How It look like
+#### Description: Timestamp.io is simple python web application with flask and opencv libraries. This web application provide user to create video with timestamp with the web browser without any tools.
+
+
+### How It look like
 
 #### Upload Page
 ![Upload Page](/static/upload%20page.png)
